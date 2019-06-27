@@ -80,7 +80,7 @@ class DOMDocument extends \DOMDocument {
 			return $match[0];
 		}
 
-		return $match[1] . encode_script( $match[2] ) . $match[3];
+		return $match[1] . rocket_dom_encode_script( $match[2] ) . $match[3];
 	}
 
 	/**
@@ -93,6 +93,6 @@ class DOMDocument extends \DOMDocument {
 			return $match[0];
 		}
 
-		return $match[1] . maybe_decode_script( $match[2] ) . $match[3];
+		return $match[1] . rocket_dom_maybe_decode_script( $match[2] ) . $match[3];
 	}
 }
