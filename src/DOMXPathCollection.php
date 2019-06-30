@@ -135,6 +135,13 @@ class DOMXPathCollection implements \Iterator {
 	}
 
 	/**
+	 *
+	 */
+	public function changed() {
+		$this->change = true;
+	}
+
+	/**
 	 * @param \pcfreak30\RocketDOM\DOMElement $node
 	 *
 	 * @return false|int|string
@@ -186,13 +193,6 @@ class DOMXPathCollection implements \Iterator {
 	}
 
 	/**
-	 *
-	 */
-	public function changed() {
-		$this->change = true;
-	}
-
-	/**
 	 * Move forward to next element
 	 *
 	 * @link  http://php.net/manual/en/iterator.next.php
@@ -204,5 +204,9 @@ class DOMXPathCollection implements \Iterator {
 			$this->index ++;
 		}
 		$this->change = false;
+	}
+
+	public function count() {
+		return count( $this->list );
 	}
 }
