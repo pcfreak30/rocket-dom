@@ -44,7 +44,7 @@ class DOMXPathCollection implements \Iterator {
 	 * @para string $query
 	 *
 	 * @param \pcfreak30\RocketDOM\DOMDocument $document
-	 * @param \DOMXPath                        $xpath
+	 * @param                                  $query
 	 * @param \DOMXPath                        $xpath
 	 */
 	public function __construct( DOMDocument $document, $query, \DOMXPath $xpath ) {
@@ -119,7 +119,8 @@ class DOMXPathCollection implements \Iterator {
 	}
 
 	/**
-	 * @param DOMElement $node
+	 * @param \pcfreak30\RocketDOM\DOMElement $node
+	 * @param \pcfreak30\RocketDOM\DOMElement $existing_node
 	 */
 	public function insert_before( DOMElement $node, DOMElement $existing_node ) {
 		if ( $existing_node->parentNode ) {
@@ -151,7 +152,7 @@ class DOMXPathCollection implements \Iterator {
 	 * @return false|int|string
 	 */
 	private function get_node_index( DOMElement $node ) {
-		return array_search( spl_object_hash( $node ), array_keys( $this->list ) );
+		return array_search( spl_object_hash( $node ), array_keys( $this->list ), false );
 	}
 
 	/**

@@ -19,6 +19,8 @@ class DOMDocument extends \DOMDocument {
 		DOMElementTrait;
 
 	/**
+	 * @param $tag_type
+	 *
 	 * @return \pcfreak30\RocketDOM\DOMTagNameCollection
 	 */
 	public function get_nodes_by_type( $tag_type ) {
@@ -26,7 +28,7 @@ class DOMDocument extends \DOMDocument {
 	}
 
 	/**
-	 * @param $xpath
+	 * @param $query
 	 *
 	 * @return \pcfreak30\RocketDOM\DOMXPathCollection
 	 */
@@ -86,7 +88,7 @@ class DOMDocument extends \DOMDocument {
 	 * @return string
 	 */
 	protected function pre_process_scripts_callback( $match ) {
-		if ( 0 === strlen( trim( $match[2] ) ) ) {
+		if ( trim( $match[2] ) === '' ) {
 			return $match[0];
 		}
 
@@ -99,7 +101,7 @@ class DOMDocument extends \DOMDocument {
 	 * @return string
 	 */
 	protected function post_process_scripts_callback( $match ) {
-		if ( 0 === strlen( trim( $match[2] ) ) ) {
+		if ( trim( $match[2] ) === '' ) {
 			return $match[0];
 		}
 
