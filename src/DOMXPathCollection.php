@@ -59,7 +59,11 @@ class DOMXPathCollection implements \Iterator {
 	 */
 	private function fetch() {
 		/** @var \pcfreak30\RocketDOM\DOMDocument $node */
-		$this->list = iterator_to_array( $this->xpath->query( $this->query ) );
+		$this->list = $this->xpath->query( $this->query );
+		if ( ! $this->list ) {
+			return;
+		}
+		$this->list = iterator_to_array( $this->list );
 		$this->list = array_combine( array_map( 'spl_object_hash', $this->list ), $this->list );
 
 	}
@@ -100,7 +104,7 @@ class DOMXPathCollection implements \Iterator {
 	 * @since 5.0.0
 	 */
 	public function valid() {
-		return isset( $this->list[ $this->index ] ) && null !== isset( $this->list[ $this->index ] );
+		return $this->list && isset( $this->list[ $this->index ] ) && null !== isset( $this->list[ $this->index ] );
 	}
 
 	/**
@@ -207,6 +211,10 @@ class DOMXPathCollection implements \Iterator {
 	}
 
 	public function count() {
+		if ( ! $this->list ) {
+			return 0;
+		}
+
 		return count( $this->list );
 	}
 }
