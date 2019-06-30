@@ -50,7 +50,7 @@ class DOMDocument extends \DOMDocument {
 	 *
 	 * @return null|string|string[]
 	 */
-	public function pre_process_scripts( $buffer ) {
+	protected function pre_process_scripts( $buffer ) {
 		return preg_replace_callback( self::SCRIPT_REGEX, [
 			$this,
 			'pre_process_scripts_callback',
@@ -73,7 +73,7 @@ class DOMDocument extends \DOMDocument {
 	 *
 	 * @return null|string|string[]
 	 */
-	public function post_process_scripts( $buffer ) {
+	protected function post_process_scripts( $buffer ) {
 		return preg_replace_callback( self::SCRIPT_REGEX, [
 			$this,
 			'post_process_scripts_callback',
