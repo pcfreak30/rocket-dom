@@ -9,7 +9,8 @@ use DOMXPath;
  * Trait DOMElementTrait
  *
  * @package pcfreak30\RocketDOM
- * @property \pcfreak30\RocketDOM\DOMElement $parentNode
+ * @property \pcfreak30\RocketDOM\DOMElement  $parentNode
+ * @property \pcfreak30\RocketDOM\DOMDocument $ownerDocument
  */
 trait DOMElementTrait {
 	/**
@@ -44,10 +45,10 @@ trait DOMElementTrait {
 	 * @return bool|\DOMElement
 	 */
 	public function next( $xpath_expr ) {
-		$xpath      = new DOMXPath( $this->ownerDocument );
 		$xpath_expr = trim( "following-sibling::{$xpath_expr}", ':' );
-		if ( ( $result = $xpath->query( $xpath_expr, $this ) ) && 0 < $result->length ) {
-			return $result->item( 0 );
+		$result     = $this->ownerDocument->get_nodes_by_xpath( $xpath_expr );
+		if ( 0 < $result->count() ) {
+			return $result->current();
 		}
 
 		return false;
@@ -59,10 +60,10 @@ trait DOMElementTrait {
 	 * @return bool|\DOMElement
 	 */
 	public function prev( $xpath_expr ) {
-		$xpath      = new DOMXPath( $this->ownerDocument );
 		$xpath_expr = trim( "preceding-sibling::{$xpath_expr}", ':' );
-		if ( ( $result = $xpath->query( $xpath_expr, $this ) ) && 0 < $result->length ) {
-			return $result->item( 0 );
+		$result     = $this->ownerDocument->get_nodes_by_xpath( $xpath_expr );
+		if ( 0 < $result->count() ) {
+			return $result->current();
 		}
 
 		return false;
