@@ -19,5 +19,8 @@
     "psr-4": {
       "pcfreak30\\RocketDOM\\": "src"
     }
+  },
+  "require-dev": {
+    "codeception/codeception": "^3.0"
   }
 }
