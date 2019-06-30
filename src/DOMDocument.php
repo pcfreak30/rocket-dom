@@ -42,7 +42,7 @@ class DOMDocument extends \DOMDocument {
 	 * @return bool
 	 */
 	public function loadHTML( $source, $options = 0 ) {
-		return @parent::loadHTML( $this->pre_process_scripts( $source ), $options );
+		return @parent::loadHTML( $this->pre_process_scripts( mb_convert_encoding( $source, 'HTML-ENTITIES', 'UTF-8' ) ), $options );
 	}
 
 	/**
