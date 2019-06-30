@@ -19,11 +19,21 @@ class DOMDocument extends \DOMDocument {
 		DOMElementTrait;
 
 	/**
-	 * @return \DOMNodeList
+	 * @return \pcfreak30\RocketDOM\DOMTagNameCollection
 	 */
-	public function get_script_tags() {
-		return $this->getElementsByTagName( 'script' );
+	public function get_nodes_by_type( $tag_type ) {
+		return new DOMTagNameCollection( $this, $tag_type );
 	}
+
+	/**
+	 * @param $xpath
+	 *
+	 * @return \pcfreak30\RocketDOM\DOMXPathCollection
+	 */
+	public function get_nodes_by_xpath( $query ) {
+		return new DOMXPathCollection( $this, $query, new \DOMXPath( $this ) );
+	}
+
 
 	/**
 	 * @param string $source
