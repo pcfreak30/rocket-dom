@@ -8,6 +8,7 @@ namespace pcfreak30\RocketDOM;
  * Class DOMXPathCollection
  *
  * @package pcfreak30\RocketDOM
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
 class DOMXPathCollection implements \Iterator {
 	/**
