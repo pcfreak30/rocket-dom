@@ -14,7 +14,7 @@
   },
   "autoload": {
     "files": [
-      "util.php"
+      "src/util.php"
     ],
     "psr-4": {
       "pcfreak30\\RocketDOM\\": "src"
