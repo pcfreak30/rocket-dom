@@ -2,37 +2,37 @@
 
 namespace pcfreak30\RocketDOM;
 
-if ( ! function_exists( __NAMESPACE__ . '\maybe_decode_script' ) ) {
-	function maybe_decode_script( $data ) {
-		if ( is_base64_encoded( $data ) ) {
-			return json_decode( base64_decode( $data ) );
+if ( ! function_exists( __NAMESPACE__ . '\rocket_dom_maybe_decode_script' ) ) {
+	function rocket_dom_maybe_decode_script( $data ) {
+		if ( rocket_dom_is_base64_encoded( $data ) ) {
+			return json_decode( base64_decode( $data ), false );
 		}
 
 		return $data;
 	}
 }
 
-if ( ! function_exists( __NAMESPACE__ . '\encode_script' ) ) {
-	function encode_script( $data ) {
+if ( ! function_exists( __NAMESPACE__ . '\rocket_dom_encode_script' ) ) {
+	function rocket_dom_encode_script( $data ) {
 		return base64_encode( json_encode( $data ) );
 	}
 }
 
-if ( ! function_exists( __NAMESPACE__ . '\is_base64_encoded' ) ) {
-	function is_base64_encoded( $data ) {
-		return base64_decode( $data, true ) && json_decode( base64_decode( $data ) );
+if ( ! function_exists( __NAMESPACE__ . '\rocket_dom_is_base64_encoded' ) ) {
+	function rocket_dom_is_base64_encoded( $data ) {
+		return base64_decode( $data, true ) && json_decode( base64_decode( $data ), false );
 	}
 }
 
-if ( ! function_exists( __NAMESPACE__ . '\node_map' ) ) {
-	function node_map( DOMElement $key, DOMElement $value = null ) {
+if ( ! function_exists( __NAMESPACE__ . '\rocket_dom_node_map' ) ) {
+	function rocket_dom_node_map( DOMElement $key, DOMElement $value = null ) {
 		static $map;
 
 		if ( null === $map ) {
 			$map = new \SplObjectStorage();
 		}
 
-		if ( null !== $value && $value instanceof DOMElement ) {
+		if ( ( null !== $value ) && ( $value instanceof DOMElement ) ) {
 			$map[ $key ] = $value;
 		}
 
