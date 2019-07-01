@@ -22,7 +22,7 @@ trait DOMElementTrait {
 		if ( $doc && ! $newnode->ownerDocument->isSameNode( $this ) ) {
 			/** @var \pcfreak30\RocketDOM\DOMElement $newnode_imported */
 			$newnode_imported = $doc->importNode( $newnode, true );
-			rocket_dom_node_map( $newnode_imported, $newnode );
+			node_map( $newnode_imported, $newnode );
 			$newnode = $newnode_imported;
 		}
 		parent::appendChild( $newnode );
