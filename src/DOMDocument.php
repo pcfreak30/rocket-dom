@@ -19,6 +19,17 @@ class DOMDocument extends \DOMDocument {
 		DOMElementTrait;
 
 	/**
+	 * DOMDocument constructor.
+	 *
+	 * @param string $version
+	 * @param string $encoding
+	 */
+	public function __construct( $version = '', $encoding = '' ) {
+		parent::__construct( $version, $encoding );
+		$this->registerNodeClass( '\DOMElement', '\pcfreak30\RocketDOM\DOMElement' );
+	}
+
+	/**
 	 * @param $tag_type
 	 *
 	 * @return \pcfreak30\RocketDOM\DOMTagNameCollection
