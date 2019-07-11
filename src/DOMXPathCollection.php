@@ -93,7 +93,9 @@ class DOMXPathCollection implements \Iterator {
 	 * @since 5.0.0
 	 */
 	public function current() {
-		return $this->list[ $this->index ];
+		$indexes = array_keys( $this->list );
+
+		return $this->list[ $indexes[ $this->index ] ];
 	}
 
 	/**
@@ -105,7 +107,9 @@ class DOMXPathCollection implements \Iterator {
 	 * @since 5.0.0
 	 */
 	public function valid() {
-		return $this->list && isset( $this->list[ $this->index ] ) && null !== isset( $this->list[ $this->index ] );
+		$indexes = array_keys( $this->list );
+
+		return $this->list && isset( $indexes[ $this->index ] ) && null !== isset( $indexes[ $this->index ] );
 	}
 
 	/**
