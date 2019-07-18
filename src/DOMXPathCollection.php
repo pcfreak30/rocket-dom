@@ -89,7 +89,7 @@ class DOMXPathCollection implements \Iterator {
 	 * Return the current element
 	 *
 	 * @link  https://php.net/manual/en/iterator.current.php
-	 * @return mixed Can return any type.
+	 * @return \pcfreak30\RocketDOM\DOMElement
 	 * @since 5.0.0
 	 */
 	public function current() {
