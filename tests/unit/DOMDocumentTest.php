@@ -79,7 +79,7 @@ HTML;
 		$doc = new DOMDocument();
 		$doc->loadHTML( $this->html );
 
-		$collection = $doc->get_nodes_by_type( 'body' );
+		$collection = $doc->get_nodes_by_xpath( '//body' );
 		$this->assertEquals( 1, $collection->count() );
 	}
 }
