@@ -203,7 +203,7 @@ class DOMXPathCollection implements Iterator {
 
 		if ( $existing_node->parentNode ) {
 			$index = $this->get_node_index( $existing_node );
-			if ( $index === count( $this->list ) - 1 ) {
+			if ( $index === $this->count() - 1 ) {
 				$this->append( $node );
 
 				return;
