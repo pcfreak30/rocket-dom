@@ -200,7 +200,7 @@ class DOMXPathCollection implements Iterator {
 				return;
 			}
 			$existing_node->parentNode->insertBefore( $node, $existing_node );
-			$this->insert_at( $node, $this->get_node_index( $node ) );
+			$this->insert_at( $node, $this->get_node_index( $existing_node ) + 1 );
 		}
 	}
 
