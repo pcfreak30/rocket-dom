@@ -137,7 +137,11 @@ class DOMXPathCollection implements Iterator {
 	 * @param \pcfreak30\RocketDOM\DOMElement $node
 	 * @param \pcfreak30\RocketDOM\DOMElement $existing_node
 	 */
-	public function insert_before( DOMElement $node, DOMElement $existing_node ) {
+	public function insert_before( DOMElement $node, DOMElement $existing_node = null ) {
+		if ( ! $existing_node ) {
+			$existing_node = $this->current();
+		}
+
 		if ( $existing_node->parentNode ) {
 			$existing_node->parentNode->insertBefore( $node, $existing_node );
 			$this->insert_at( $node, $this->get_node_index( $node ) );
@@ -192,7 +196,11 @@ class DOMXPathCollection implements Iterator {
 	 * @param \pcfreak30\RocketDOM\DOMElement $node
 	 * @param \pcfreak30\RocketDOM\DOMElement $existing_node
 	 */
-	public function insert_after( DOMElement $node, DOMElement $existing_node ) {
+	public function insert_after( DOMElement $node, DOMElement $existing_node = null ) {
+		if ( ! $existing_node ) {
+			$existing_node = $this->current();
+		}
+
 		if ( $existing_node->parentNode ) {
 			if ( $this->index === count( $this->list ) - 1 ) {
 				$this->append( $node );
