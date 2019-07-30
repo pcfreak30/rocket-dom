@@ -202,7 +202,7 @@ class DOMXPathCollection implements Iterator {
 		}
 
 		if ( $existing_node->parentNode ) {
-			if ( $this->index === count( $this->list ) - 1 ) {
+			if ( $this->get_node_index( $existing_node ) === count( $this->list ) - 1 ) {
 				$this->append( $node );
 
 				return;
@@ -210,6 +210,16 @@ class DOMXPathCollection implements Iterator {
 			$existing_node->parentNode->insertBefore( $node, $existing_node );
 			$this->insert_at( $node, $this->get_node_index( $existing_node ) + 1 );
 		}
+	}
+
+	public function peek( $index ) {
+		$indexes = array_keys( $this->list );
+
+		if ( ! isset( $indexes[ $index ] ) ) {
+			return false;
+		}
+
+		return $this->list[ $indexes[ $index ] ];
 	}
 
 	/**
@@ -283,15 +293,5 @@ class DOMXPathCollection implements Iterator {
 		}
 
 		return false;
-	}
-
-	public function peek( $index ) {
-		$indexes = array_keys( $this->list );
-
-		if ( ! isset( $indexes[ $index ] ) ) {
-			return false;
-		}
-
-		return $this->list[ $indexes[ $index ] ];
 	}
 }
