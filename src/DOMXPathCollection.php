@@ -202,14 +202,23 @@ class DOMXPathCollection implements Iterator {
 		}
 
 		if ( $existing_node->parentNode ) {
-			if ( $this->get_node_index( $existing_node ) === count( $this->list ) - 1 ) {
+			$index = $this->get_node_index( $existing_node );
+			if ( $index === count( $this->list ) - 1 ) {
 				$this->append( $node );
 
 				return;
 			}
 			$existing_node->parentNode->insertBefore( $node, $existing_node );
-			$this->insert_at( $node, $this->get_node_index( $existing_node ) + 1 );
+			$this->insert_at( $node, $index + 1 );
 		}
+	}
+
+	/**
+	 * @param DOMElement $node
+	 */
+	public function append( $node ) {
+		$this->document->appendChild( $node );
+		$this->list[ spl_object_hash( $node ) ] = $node;
 	}
 
 	public function peek( $index ) {
@@ -220,14 +229,6 @@ class DOMXPathCollection implements Iterator {
 		}
 
 		return $this->list[ $indexes[ $index ] ];
-	}
-
-	/**
-	 * @param DOMElement $node
-	 */
-	public function append( $node ) {
-		$this->document->appendChild( $node );
-		$this->list[ spl_object_hash( $node ) ] = $node;
 	}
 
 	/**
