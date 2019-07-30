@@ -284,4 +284,14 @@ class DOMXPathCollection implements Iterator {
 
 		return false;
 	}
+
+	public function peek( $index ) {
+		$indexes = array_keys( $this->list );
+
+		if ( ! isset( $indexes[ $index ] ) ) {
+			return false;
+		}
+
+		return $this->list[ $indexes[ $index ] ];
+	}
 }
