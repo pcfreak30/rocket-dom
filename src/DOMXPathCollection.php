@@ -62,20 +62,20 @@ class DOMXPathCollection implements Iterator {
 		$this->query        = $query;
 		$this->xpath        = $xpath;
 		$this->context_node = $context_node ?: $document;
-		$this->fetch();
 	}
 
 	/**
 	 *
 	 */
-	private function fetch() {
+	public function fetch() {
 		/** @var \pcfreak30\RocketDOM\DOMDocument $node */
 		$this->list = $this->xpath->query( $this->query, $this->context_node );
-		if ( ! $this->list ) {
-			return;
+		if ( $this->list ) {
+			$this->list = iterator_to_array( $this->list );
+			$this->list = array_combine( array_map( 'spl_object_hash', $this->list ), $this->list );
 		}
-		$this->list = iterator_to_array( $this->list );
-		$this->list = array_combine( array_map( 'spl_object_hash', $this->list ), $this->list );
+
+		return $this;
 	}
 
 	/**
