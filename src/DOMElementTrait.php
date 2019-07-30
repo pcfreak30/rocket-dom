@@ -3,6 +3,7 @@
 namespace pcfreak30\RocketDOM;
 
 use DOMNode;
+
 /**
  * Trait DOMElementTrait
  *
@@ -44,7 +45,7 @@ trait DOMElementTrait {
 	 */
 	public function next( $xpath_expr ) {
 		$xpath_expr = trim( "following-sibling::{$xpath_expr}", ':' );
-		$result     = $this->ownerDocument->get_nodes_by_xpath( $xpath_expr );
+		$result     = $this->ownerDocument->get_nodes_by_xpath( $xpath_expr, $this );
 		if ( 0 < $result->count() ) {
 			return $result->current();
 		}
@@ -59,7 +60,7 @@ trait DOMElementTrait {
 	 */
 	public function prev( $xpath_expr ) {
 		$xpath_expr = trim( "preceding-sibling::{$xpath_expr}", ':' );
-		$result     = $this->ownerDocument->get_nodes_by_xpath( $xpath_expr );
+		$result     = $this->ownerDocument->get_nodes_by_xpath( $xpath_expr, $this );
 		if ( 0 < $result->count() ) {
 			return $result->current();
 		}
