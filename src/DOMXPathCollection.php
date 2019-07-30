@@ -225,11 +225,42 @@ class DOMXPathCollection implements Iterator {
 		$this->change = false;
 	}
 
+	public function seek( DOMElement $node ) {
+		$index = $this->get_node_index( $node );
+		if ( $index ) {
+			$this->index = $index;
+
+			return $index;
+		}
+
+		return false;
+	}
+
+	public function first() {
+		if ( $this->count() ) {
+			$list = array_keys( $this->list );
+
+			return $this->list[ $list[0] ];
+		}
+
+		return false;
+	}
+
 	public function count() {
 		if ( ! $this->list ) {
 			return 0;
 		}
 
 		return count( $this->list );
+	}
+
+	public function last() {
+		if ( $this->count() ) {
+			$list = array_keys( $this->list );
+
+			return $this->list[ end( $list ) ];
+		}
+
+		return false;
 	}
 }
