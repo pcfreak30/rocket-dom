@@ -80,6 +80,17 @@ class DOMXPathCollection implements Iterator {
 	}
 
 	/**
+	 * Rewind the Iterator to the first element
+	 *
+	 * @link  https://php.net/manual/en/iterator.rewind.php
+	 * @return void Any returned value is ignored.
+	 * @since 5.0.0
+	 */
+	public function rewind() {
+		$this->index = 0;
+	}
+
+	/**
 	 *
 	 */
 	public function remove() {
@@ -120,17 +131,6 @@ class DOMXPathCollection implements Iterator {
 		$indexes = array_keys( $this->list );
 
 		return $this->list && isset( $indexes[ $this->index ] ) && null !== isset( $indexes[ $this->index ] );
-	}
-
-	/**
-	 * Rewind the Iterator to the first element
-	 *
-	 * @link  https://php.net/manual/en/iterator.rewind.php
-	 * @return void Any returned value is ignored.
-	 * @since 5.0.0
-	 */
-	public function rewind() {
-		$this->index = 0;
 	}
 
 	/**
