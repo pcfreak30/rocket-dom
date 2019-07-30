@@ -35,7 +35,7 @@ class DOMDocument extends \DOMDocument {
 	 * @return \pcfreak30\RocketDOM\DOMTagNameCollection
 	 */
 	public function get_nodes_by_type( $tag_type ) {
-		return new DOMTagNameCollection( $this, $tag_type );
+		return ( new DOMTagNameCollection( $this, $tag_type ) )->fetch();
 	}
 
 	/**
@@ -44,7 +44,7 @@ class DOMDocument extends \DOMDocument {
 	 * @return \pcfreak30\RocketDOM\DOMXPathCollection
 	 */
 	public function get_nodes_by_xpath( $query, $node = null ) {
-		return new DOMXPathCollection( $this, $query, new \DOMXPath( $this ), $node );
+		return ( new DOMXPathCollection( $this, $query, new \DOMXPath( $this ), $node ) )->fetch();
 	}
 
 
