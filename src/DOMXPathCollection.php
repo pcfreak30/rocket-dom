@@ -4,13 +4,17 @@
 namespace pcfreak30\RocketDOM;
 
 
+use DOMNode;
+use DOMXPath;
+use Iterator;
+
 /**
  * Class DOMXPathCollection
  *
  * @package pcfreak30\RocketDOM
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  */
-class DOMXPathCollection implements \Iterator {
+class DOMXPathCollection implements Iterator {
 	/**
 	 * @var string
 	 */
@@ -38,6 +42,10 @@ class DOMXPathCollection implements \Iterator {
 	 * @var \DOMXPath
 	 */
 	private $xpath;
+	/**
+	 * @var DOMNode
+	 */
+	private $context_node;
 
 	/**
 	 * DOMCollection constructor.
@@ -47,11 +55,13 @@ class DOMXPathCollection implements \Iterator {
 	 * @param \pcfreak30\RocketDOM\DOMDocument $document
 	 * @param                                  $query
 	 * @param \DOMXPath                        $xpath
+	 * @param \DOMNode|null                    $context_node
 	 */
-	public function __construct( DOMDocument $document, $query, \DOMXPath $xpath ) {
-		$this->document = $document;
-		$this->query    = $query;
-		$this->xpath    = $xpath;
+	public function __construct( DOMDocument $document, $query, DOMXPath $xpath, DOMNode $context_node = null ) {
+		$this->document     = $document;
+		$this->query        = $query;
+		$this->xpath        = $xpath;
+		$this->context_node = $context_node ?: $document;
 		$this->fetch();
 	}
 
@@ -60,13 +70,12 @@ class DOMXPathCollection implements \Iterator {
 	 */
 	private function fetch() {
 		/** @var \pcfreak30\RocketDOM\DOMDocument $node */
-		$this->list = $this->xpath->query( $this->query );
+		$this->list = $this->xpath->query( $this->query, $this->context_node );
 		if ( ! $this->list ) {
 			return;
 		}
 		$this->list = iterator_to_array( $this->list );
 		$this->list = array_combine( array_map( 'spl_object_hash', $this->list ), $this->list );
-
 	}
 
 	/**
