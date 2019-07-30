@@ -43,8 +43,8 @@ class DOMDocument extends \DOMDocument {
 	 *
 	 * @return \pcfreak30\RocketDOM\DOMXPathCollection
 	 */
-	public function get_nodes_by_xpath( $query ) {
-		return new DOMXPathCollection( $this, $query, new \DOMXPath( $this ) );
+	public function get_nodes_by_xpath( $query, $node = null ) {
+		return new DOMXPathCollection( $this, $query, new \DOMXPath( $this ), $node );
 	}
 
 
