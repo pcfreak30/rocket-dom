@@ -237,6 +237,18 @@ class DOMXPathCollection implements Iterator {
 		return false;
 	}
 
+	public function seek_position( $index ) {
+		$original    = $this->index;
+		$this->index = $index;
+		if ( ! $this->valid() ) {
+			$this->index = $original;
+
+			return false;
+		}
+
+		return true;
+	}
+
 	public function first() {
 		if ( $this->count() ) {
 			$list = array_keys( $this->list );
