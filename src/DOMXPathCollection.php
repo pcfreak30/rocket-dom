@@ -98,7 +98,9 @@ class DOMXPathCollection implements Iterator {
 		if ( $item && $item->parentNode ) {
 			$item->parentNode->removeChild( $item );
 		}
-		unset( $this->list[ $this->index ] );
+
+		$indexes = array_keys( $this->list );
+		unset( $this->list[ $indexes[ $this->index ] ] );
 		$this->index ++;
 		$this->change = true;
 		if ( ! $this->valid() ) {
@@ -213,6 +215,14 @@ class DOMXPathCollection implements Iterator {
 		}
 	}
 
+	public function count() {
+		if ( ! $this->list ) {
+			return 0;
+		}
+
+		return count( $this->list );
+	}
+
 	/**
 	 * @param DOMElement $node
 	 */
@@ -276,14 +286,6 @@ class DOMXPathCollection implements Iterator {
 		}
 
 		return false;
-	}
-
-	public function count() {
-		if ( ! $this->list ) {
-			return 0;
-		}
-
-		return count( $this->list );
 	}
 
 	public function last() {
