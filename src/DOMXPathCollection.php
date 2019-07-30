@@ -73,6 +73,7 @@ class DOMXPathCollection implements Iterator {
 		if ( $this->list ) {
 			$this->list = iterator_to_array( $this->list );
 			$this->list = array_combine( array_map( 'spl_object_hash', $this->list ), $this->list );
+			$this->rewind();
 		}
 
 		return $this;
