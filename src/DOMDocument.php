@@ -47,6 +47,16 @@ class DOMDocument extends \DOMDocument {
 		return ( new DOMXPathCollection( $this, $query, new \DOMXPath( $this ), $node ) )->fetch();
 	}
 
+	/**
+	 * @param string $name
+	 * @param null   $value
+	 *
+	 * @return \pcfreak30\RocketDOM\DOMElement|void
+	 */
+	public function createElement( $name, $value = null ) {
+		return parent::createElement( $name, $value );
+	}
+
 
 	/**
 	 * @param string $source
