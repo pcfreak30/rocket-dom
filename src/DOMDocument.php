@@ -65,7 +65,11 @@ class DOMDocument extends \DOMDocument {
 	 * @return bool
 	 */
 	public function loadHTML( $source, $options = 0 ) {
-		return @parent::loadHTML( $this->pre_process_scripts( mb_convert_encoding( $source, 'HTML-ENTITIES', 'UTF-8' ) ), $options );
+		$source = $this->pre_process_scripts( $source );
+		$source = $this->pre_process_styles( $source );
+		$source = mb_convert_encoding( $source, 'HTML-ENTITIES', 'UTF-8' );
+
+		return @parent::loadHTML( $source, $options );
 	}
 
 	/**
@@ -77,6 +81,20 @@ class DOMDocument extends \DOMDocument {
 		return preg_replace_callback( self::SCRIPT_REGEX, [
 			$this,
 			'pre_process_scripts_callback',
+		], $buffer );
+	}
+
+	public function pre_process_styles( $buffer ) {
+		return preg_replace_callback( '~(<style[^>]*>)(.*)(<\/style>)~isU', [
+			$this,
+			'pre_process_styles_callback',
+		], $buffer );
+	}
+
+	public function post_process_styles( $buffer ) {
+		return preg_replace_callback( '~(<style[^>]*>)(.*)(<\/style>)~isU', [
+			$this,
+			'post_process_styles_callback',
 		], $buffer );
 	}
 
@@ -103,6 +121,22 @@ class DOMDocument extends \DOMDocument {
 		], $buffer );
 	}
 
+	protected function pre_process_styles_callback( $match ) {
+		if ( 0 === strlen( trim( $match[2] ) ) ) {
+			return $match[0];
+		}
+
+		return "{$match[1]}" . encode_data( $match[2] ) . "{$match[3]}";
+	}
+
+	protected function post_process_styles_callback( $match ) {
+		if ( 0 === strlen( trim( $match[2] ) ) ) {
+			return $match[0];
+		}
+
+		return "{$match[1]}" . maybe_decode_data( $match[2] ) . "{$match[3]}";
+	}
+
 	/**
 	 * @param $match
 	 *
@@ -113,7 +147,7 @@ class DOMDocument extends \DOMDocument {
 			return $match[0];
 		}
 
-		return $match[1] . encode_script( $match[2] ) . $match[3];
+		return $match[1] . encode_data( $match[2] ) . $match[3];
 	}
 
 	/**
@@ -126,6 +160,6 @@ class DOMDocument extends \DOMDocument {
 			return $match[0];
 		}
 
-		return $match[1] . maybe_decode_script( $match[2] ) . $match[3];
+		return $match[1] . maybe_decode_data( $match[2] ) . $match[3];
 	}
 }

@@ -3,7 +3,7 @@
 namespace pcfreak30\RocketDOM;
 
 if ( ! function_exists( __NAMESPACE__ . '\maybe_decode_script' ) ) {
-	function maybe_decode_script( $data ) {
+	function maybe_decode_data( $data ) {
 		if ( is_base64_encoded( $data ) ) {
 			return json_decode( base64_decode( $data ) );
 		}
@@ -13,7 +13,7 @@ if ( ! function_exists( __NAMESPACE__ . '\maybe_decode_script' ) ) {
 }
 
 if ( ! function_exists( __NAMESPACE__ . '\encode_script' ) ) {
-	function encode_script( $data ) {
+	function encode_data( $data ) {
 		return base64_encode( json_encode( $data ) );
 	}
 }
